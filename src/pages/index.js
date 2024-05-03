@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useSteps } from "@chakra-ui/react";
 import CategoryCard from "../../components/categoryCard";
 import PaginationButtons from "../../components/paginationButtons";
+import { CATEGORIES } from "../../lib/categories";
 import axios from "axios";
 export default function test() {
   return (
@@ -18,8 +19,11 @@ export default function test() {
       <div className="m-12 p-10 rounded-xl flex justify-center items-center bg-blue-300">
         <div className="container mx-0 md:mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-6 gap-4 pt-5">
-            <CategoryCard title={"General Knowledge"} img={"/gk.jpg"} />
-            <CategoryCard title={"General Knowledge"} img={"/gk.jpg"} />
+            {CATEGORIES.map((cat) => (
+              <CategoryCard key={cat.id} title={cat.title} img={"/gk.jpg"} />
+            ))}
+
+            {/* <CategoryCard title={"General Knowledge"} img={"/gk.jpg"} />
             <CategoryCard title={"General Knowledge"} img={"/hero-card.jpeg"} />
             <CategoryCard title={"General Knowledge"} img={"/gk.jpg"} />
             <CategoryCard title={"General Knowledge"} img={"/gk.jpg"} />
@@ -29,7 +33,7 @@ export default function test() {
             <CategoryCard title={"General Knowledge"} img={"/gk.jpg"} />
             <CategoryCard title={"General Knowledge"} img={"/hero-card.jpeg"} />
             <CategoryCard title={"General Knowledge"} img={"/gk.jpg"} />
-            <CategoryCard title={"General Knowledge"} img={"/gk.jpg"} />
+            <CategoryCard title={"General Knowledge"} img={"/gk.jpg"} /> */}
           </div>
           <PaginationButtons />
         </div>
