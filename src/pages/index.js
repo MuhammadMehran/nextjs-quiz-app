@@ -20,7 +20,12 @@ export default function test() {
         <div className="container mx-0 md:mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-6 gap-4 pt-5">
             {CATEGORIES.map((cat) => (
-              <CategoryCard key={cat.id} title={cat.title} img={"/gk.jpg"} />
+              <CategoryCard
+                key={cat.id}
+                title={cat.title}
+                img={cat.img}
+                // img={"/cat_10.jpg"}
+              />
             ))}
 
             {/* <CategoryCard title={"General Knowledge"} img={"/gk.jpg"} />

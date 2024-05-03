@@ -8,7 +8,7 @@ const CategoryCard = ({ title, img }) => {
         _hover={{
           borderColor: "blue.500",
         }}
-        border="3px solid transparent"
+        border="2px solid transparent"
         backgroundImage={`url(${img})`}
         backgroundSize="cover"
         backgroundPosition="center"
