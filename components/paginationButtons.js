@@ -1,6 +1,6 @@
 import React from "react";
 import { ChevronRightIcon, ChevronLeftIcon } from "@chakra-ui/icons";
-import { Flex, IconButton } from "@chakra-ui/react";
+import { Flex, IconButton, Button } from "@chakra-ui/react";
 
 const PaginationButtons = ({
   currentPage,
@@ -10,12 +10,6 @@ const PaginationButtons = ({
 }) => {
   return (
     <Flex justifyContent="space-between">
-      {/* <ChevronLeftIcon
-        onClick={onPrevClick}
-        boxSize={20}
-        color="blue.500"
-        disabled
-      /> */}
       {currentPage == 1 ? (
         <IconButton
           variant="ghost"
@@ -33,6 +27,9 @@ const PaginationButtons = ({
           icon={<ChevronLeftIcon boxSize={20} />}
         />
       )}
+      <Button colorScheme="blue" variant="outline">
+        Page {currentPage} of {totalPages}
+      </Button>
       {currentPage == totalPages ? (
         <IconButton
           variant="ghost"
