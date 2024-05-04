@@ -1,5 +1,7 @@
 import React from "react";
 import { ChevronRightIcon, ChevronLeftIcon } from "@chakra-ui/icons";
+import { Flex } from "@chakra-ui/react";
+
 const PaginationButtons = (
   {
     //   currentPage,
@@ -9,10 +11,10 @@ const PaginationButtons = (
   }
 ) => {
   return (
-    <div className={`flex justify-between items-center my-4`}>
+    <Flex justifyContent="space-between">
       <ChevronLeftIcon boxSize={20} color="blue.500" />
       <ChevronRightIcon boxSize={20} color="blue.500" />
-    </div>
+    </Flex>
   );
 };
 
