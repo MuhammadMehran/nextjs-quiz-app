@@ -14,7 +14,11 @@ pnpm dev
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to open the quiz.
+Open [https://nextjs-quiz-app-sand.vercel.app](https://nextjs-quiz-app-sand.vercel.app) with your browser to open the quiz.
+
+## Screenshots
+
+![Home Page](./screenshots/screencapture.png)
 
 ## Learn More
 

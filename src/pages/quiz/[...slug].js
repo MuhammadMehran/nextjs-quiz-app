@@ -60,8 +60,12 @@ export default function index() {
       setLoading(true);
 
       const { slug } = router.query;
-      console.log("cat", slug);
       if (slug == undefined) {
+        router.push("/");
+        return;
+      }
+      if (slug.length != 2) {
+        router.push("/");
         return;
       }
       const category = slug[0];
