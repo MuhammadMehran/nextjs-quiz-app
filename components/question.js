@@ -1,12 +1,15 @@
 import React from "react";
+import { Heading, Text } from "@chakra-ui/react";
 
 const Question = ({ q, currentQuestion, totalQuestions }) => {
   return (
     <div className="flex flex-col items-start w-full">
-      <h4 className="mt-10 text-xl text-white">
+      <Heading className="mt-10" size={"lg"}>
         Question {currentQuestion} of {totalQuestions}
-      </h4>
-      <div className="mt-4 text-2xl text-white">{q}</div>
+      </Heading>
+      <Text fontSize="lg" className="mt-4">
+        {q}
+      </Text>
     </div>
   );
 };

@@ -83,16 +83,7 @@ const index = () => {
             {visibleCategories.map((cat) => (
               <CategoryCard
                 onClick={() => {
-                  router.push(
-                    {
-                      pathname: `/quiz`,
-                      query: {
-                        category: cat.id,
-                        difficulty: difficulty,
-                      },
-                    },
-                    `/quiz/${cat.id}/${difficulty}`
-                  );
+                  router.push(`/quiz/${cat.id}/${difficulty}`);
                 }}
                 key={cat.id}
                 title={cat.title}

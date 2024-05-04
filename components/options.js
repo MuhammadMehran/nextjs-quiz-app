@@ -12,7 +12,7 @@ const Options = ({
         <div
           key={index}
           onClick={(e) => handleAnswerOption(answer)}
-          className="flex items-center w-full py-4 pl-5 m-2 ml-0 space-x-2 border-2 cursor-pointer bg-white/5 border-white/10 rounded-xl"
+          className="flex items-center w-full py-4 pl-5 m-2 ml-0 space-x-2 border-2 cursor-pointer rounded-xl"
         >
           <input
             type="radio"
@@ -22,7 +22,7 @@ const Options = ({
             checked={answer === selectedOptions[currentQuestion]?.answerByUser}
             className="w-6 h-6 bg-black"
           />
-          <p className="ml-6 text-white">{answer}</p>
+          <p className="ml-6 ">{answer}</p>
         </div>
       ))}
     </div>

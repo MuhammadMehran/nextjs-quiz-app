@@ -9,8 +9,6 @@ import axios from "axios";
 
 export default function index() {
   const router = useRouter();
-  // const [category, setCategory] = useState();
-  // const [difficulty, setDifficulty] = useState();
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedOptions, setSelectedOptions] = useState([]);
   const [score, setScore] = useState(0);
@@ -45,7 +43,7 @@ export default function index() {
   const handleSubmitButton = () => {
     let newScore = 0;
     for (let i = 0; i < max; i++) {
-      if (allQuestions[i].correctAnswer === selectedOptions[i]?.answerByUser) {
+      if (allQuestions[i].correct_answer === selectedOptions[i]?.answerByUser) {
         newScore += 1;
       }
     }
@@ -93,7 +91,7 @@ export default function index() {
 
   return (
     <>
-      <div className="flex flex-col  w-screen px-5 h-screen bg-[#1A1A1A] justify-center items-center">
+      <div className="flex flex-col  w-screen px-5 h-screen justify-center items-center">
         <Head>
           <title>Quiz App</title>
         </Head>
