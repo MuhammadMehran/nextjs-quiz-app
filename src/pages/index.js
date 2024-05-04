@@ -6,6 +6,9 @@ import PaginationButtons from "../../components/paginationButtons";
 import { CATEGORIES } from "../../lib/categories";
 import axios from "axios";
 export default function test() {
+  const [totalPages, setTotalPages] = useState(
+    Math.ceil(CATEGORIES.length / 12)
+  );
   const [currentPage, setCurrentPage] = useState(1);
 
   const nextPage = () => {
@@ -20,6 +23,7 @@ export default function test() {
   const startIndex = (currentPage - 1) * PAGE_SIZE;
   const endIndex = startIndex + PAGE_SIZE;
   const visibleCategories = CATEGORIES.slice(startIndex, endIndex);
+
   return (
     <>
       <Head>
@@ -37,7 +41,14 @@ export default function test() {
               <CategoryCard key={cat.id} title={cat.title} img={cat.img} />
             ))}
           </div>
-          <PaginationButtons />
+          <div className="mt-10">
+            <PaginationButtons
+              currentPage={currentPage}
+              totalPages={totalPages}
+              onNextClick={nextPage}
+              onPrevClick={prevPage}
+            />
+          </div>
         </div>
       </div>
     </>
