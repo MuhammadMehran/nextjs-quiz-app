@@ -97,13 +97,25 @@ export default function index() {
         </Head>
 
         {showScore ? (
-          <h1 className="text-3xl font-semibold text-center text-white">
-            You scored {score} out of {allQuestions.length}
-          </h1>
+          <>
+            <h1 className="text-3xl font-semibold text-center">
+              You scored {score} out of {allQuestions.length}
+            </h1>
+            <div className="flex justify-center w-full mt-4 text-white">
+              <button
+                className="w-[25%] py-3 bg-blue-500 rounded-lg"
+                onClick={() => {
+                  router.push(`/`);
+                }}
+              >
+                Go Back
+              </button>
+            </div>
+          </>
         ) : (
           <>
             <Box position="fixed" top="0" left="0" right="0" zIndex="999">
-              <Progress value={progressPercent} size="xs" colorScheme="teal" />
+              <Progress value={progressPercent} size="xs" colorScheme="blue" />
             </Box>
             {loading ? (
               <div className="flex flex-col items-start w-full">
@@ -137,13 +149,13 @@ export default function index() {
 
                 <div className="flex justify-between w-full mt-4 text-white">
                   <button
-                    className="w-[49%] py-3 bg-teal-600 rounded-lg"
+                    className="w-[49%] py-3 bg-blue-500 rounded-lg"
                     onClick={handlePrevious}
                   >
                     Previous
                   </button>
                   <button
-                    className="w-[49%] py-3 bg-teal-600 rounded-lg"
+                    className="w-[49%] py-3 bg-blue-500 rounded-lg"
                     onClick={
                       currentQuestion + 1 === max
                         ? handleSubmitButton
