@@ -54,6 +54,23 @@ export default function index() {
   function sleep(ms) {
     return new Promise((resolve) => setTimeout(resolve, ms));
   }
+  // Function to shuffle array elements (Fisher-Yates algorithm)
+  const shuffle = (array) => {
+    let currentIndex = array.length,
+      temporaryValue,
+      randomIndex;
+
+    while (currentIndex !== 0) {
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex -= 1;
+
+      temporaryValue = array[currentIndex];
+      array[currentIndex] = array[randomIndex];
+      array[randomIndex] = temporaryValue;
+    }
+
+    return array;
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -70,18 +87,26 @@ export default function index() {
       }
       const category = slug[0];
       const difficulty = slug[1].toLowerCase();
-      if (category === undefined) {
-        router.push("/");
-        return;
-      }
+      // if (category === undefined) {
+      //   router.push("/");
+      //   return;
+      // }
 
       if (allQuestions.length == 0) {
         try {
           const result = await axios.get(
             `https://opentdb.com/api.php?amount=10&category=${category}&difficulty=${difficulty}&type=multiple`
           );
-          setAllQuestions(result.data.results);
-          console.log(result.data.results);
+          let res = result.data.results;
+          // res = { ...res, options};
+          res.map((item) => {
+            item["options"] = shuffle([
+              item.correct_answer,
+              ...item.incorrect_answers,
+            ]);
+          });
+          setAllQuestions(res);
+          console.log(res);
           sleep(10000);
         } catch (error) {
           console.error("Error fetching data:", error);
@@ -140,10 +165,7 @@ export default function index() {
                       totalQuestions={max}
                     />
                     <Options
-                      answerOptions={[
-                        ...allQuestions[currentQuestion].incorrect_answers,
-                        allQuestions[currentQuestion].correct_answer,
-                      ]}
+                      answerOptions={allQuestions[currentQuestion].options}
                       handleAnswerOption={handleAnswerOption}
                       selectedOptions={selectedOptions}
                       currentQuestion={currentQuestion}

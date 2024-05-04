@@ -59,8 +59,8 @@ const index = () => {
           style={{ width: "100%", height: "100%" }}
         />
       </div>
-      <div class="flex flex-col pt-5 pb-5 mt-5 mb-5 justify-center items-center w-full bg-blue-500">
-        <h2 class="text-3xl text-white font-bold ">Difficulty Selection</h2>
+      <div className="flex flex-col pt-5 pb-5 mt-5 mb-5 justify-center items-center w-full bg-blue-500">
+        <h2 className="text-3xl text-white font-bold ">Difficulty Selection</h2>
       </div>
       <Center>
         <HStack {...group}>
@@ -74,8 +74,8 @@ const index = () => {
           })}
         </HStack>
       </Center>
-      <div class="flex flex-col pt-5 pb-5 mt-5 justify-center items-center w-full bg-blue-500">
-        <h2 class="text-3xl text-white font-bold ">Category Selection</h2>
+      <div className="flex flex-col pt-5 pb-5 mt-5 justify-center items-center w-full bg-blue-500">
+        <h2 className="text-3xl text-white font-bold ">Category Selection</h2>
       </div>
       <div className="m-12 mt-0 p-10 rounded-xl flex justify-center items-center bg-white-300">
         <div className="container mx-0 md:mx-auto">
