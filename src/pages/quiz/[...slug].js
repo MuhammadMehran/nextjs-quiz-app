@@ -106,7 +106,6 @@ export default function index() {
             ]);
           });
           setAllQuestions(res);
-          console.log(res);
           sleep(10000);
         } catch (error) {
           console.error("Error fetching data:", error);
