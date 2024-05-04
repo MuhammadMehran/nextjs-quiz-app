@@ -13,10 +13,6 @@ import { useRouter } from "next/router";
 import { quizAnimation } from "../../lib/quiz";
 
 const index = () => {
-  // let router;
-  // useEffect(() => {
-  //   router = useRouter();
-  // }, [router]);
   const router = useRouter();
   const [totalPages, setTotalPages] = useState(
     Math.ceil(CATEGORIES.length / 12)
@@ -95,7 +91,7 @@ const index = () => {
                         difficulty: difficulty,
                       },
                     },
-                    `/quiz`
+                    `/quiz/${cat.id}/${difficulty}`
                   );
                 }}
                 key={cat.id}
