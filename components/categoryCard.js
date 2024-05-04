@@ -1,8 +1,8 @@
 import React from "react";
 import { Tag, Box } from "@chakra-ui/react";
-const CategoryCard = ({ title, img }) => {
+const CategoryCard = ({ title, img, onClick }) => {
   return (
-    <div>
+    <div onClick={onClick}>
       <Box
         transition="border-color 0.3s"
         _hover={{

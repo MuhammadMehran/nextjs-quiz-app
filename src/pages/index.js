@@ -6,14 +6,23 @@ import CategoryCard from "../../components/categoryCard";
 import PaginationButtons from "../../components/paginationButtons";
 import { CATEGORIES } from "../../lib/categories";
 import Lottie from "lottie-react";
+import React from "react";
+
+import { useRouter } from "next/router";
 
 import { quizAnimation } from "../../lib/quiz";
-import axios from "axios";
-export default function index() {
+
+const index = () => {
+  // let router;
+  // useEffect(() => {
+  //   router = useRouter();
+  // }, [router]);
+  const router = useRouter();
   const [totalPages, setTotalPages] = useState(
     Math.ceil(CATEGORIES.length / 12)
   );
   const [currentPage, setCurrentPage] = useState(1);
+  const [difficulty, setDifficulty] = useState("Easy");
 
   const nextPage = () => {
     setCurrentPage((prevPage) => prevPage + 1);
@@ -30,10 +39,13 @@ export default function index() {
 
   const options = ["Easy", "Medium", "Hard"];
 
+  const handleChange = (value) => {
+    setDifficulty(value);
+  };
   const { getRootProps, getRadioProps } = useRadioGroup({
     name: "difficulty",
     defaultValue: "Easy",
-    onChange: console.log,
+    onChange: handleChange,
   });
 
   const group = getRootProps();
@@ -73,7 +85,23 @@ export default function index() {
         <div className="container mx-0 md:mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-6 gap-4 pt-5">
             {visibleCategories.map((cat) => (
-              <CategoryCard key={cat.id} title={cat.title} img={cat.img} />
+              <CategoryCard
+                onClick={() => {
+                  router.push(
+                    {
+                      pathname: `/quiz`,
+                      query: {
+                        category: cat.id,
+                        difficulty: difficulty,
+                      },
+                    },
+                    `/quiz`
+                  );
+                }}
+                key={cat.id}
+                title={cat.title}
+                img={cat.img}
+              />
             ))}
           </div>
           <div className="mt-10">
@@ -88,4 +116,6 @@ export default function index() {
       </div>
     </>
   );
-}
+};
+
+export default index;
