@@ -9,13 +9,31 @@ const Options = ({
   correctAnswer,
   showCorrect,
 }) => {
+  let divClass =
+    "flex items-center w-full py-4 pl-5 m-2 ml-0 space-x-2 border-2 cursor-pointer rounded-xl";
+  if (
+    showCorrect &&
+    correctAnswer == selectedOptions[currentQuestion]?.answerByUser
+  ) {
+    divClass += " bg-green-100";
+  } else {
+    divClass += " bg-red-100";
+  }
+  let condition =
+    correctAnswer == selectedOptions[currentQuestion]?.answerByUser
+      ? correctAnswer
+      : selectedOptions[currentQuestion]?.answerByUser;
   return (
     <div className="flex flex-col w-full">
       {answerOptions.map((answer, index) => (
         <div
           key={index}
           onClick={(e) => !showCorrect && handleAnswerOption(answer)}
-          className="flex items-center w-full py-4 pl-5 m-2 ml-0 space-x-2 border-2 cursor-pointer rounded-xl"
+          className={
+            condition == answer
+              ? divClass
+              : "flex items-center w-full py-4 pl-5 m-2 ml-0 space-x-2 border-2 cursor-pointer rounded-xl"
+          }
         >
           {showCorrect ? (
             <>
@@ -37,7 +55,7 @@ const Options = ({
               className="w-6 h-6 bg-black"
             />
           )}
-          <p className="ml-6 ">{answer}</p>
+          <p className="ml-6 " dangerouslySetInnerHTML={{ __html: answer }} />
         </div>
       ))}
     </div>
