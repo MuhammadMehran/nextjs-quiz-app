@@ -19,6 +19,7 @@ export default function index() {
   });
   const [allQuestions, setAllQuestions] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [seeSolution, setSeeSolution] = useState(false);
 
   const max = 10;
   const handlePrevious = () => {
@@ -134,6 +135,18 @@ export default function index() {
               <button
                 className="w-[25%] py-3 bg-blue-500 rounded-lg"
                 onClick={() => {
+                  setSeeSolution(true);
+                  setShowScore(false);
+                  setCurrentQuestion(0);
+                }}
+              >
+                See Solution
+              </button>
+            </div>
+            <div className="flex justify-center w-full mt-4 text-white">
+              <button
+                className="w-[25%] py-3 bg-blue-500 rounded-lg"
+                onClick={() => {
                   router.push(`/`);
                 }}
               >
@@ -157,40 +170,93 @@ export default function index() {
               </div>
             ) : (
               <>
-                {allQuestions.length > 0 && (
+                {seeSolution ? (
                   <>
-                    <Question
-                      q={allQuestions[currentQuestion].question}
-                      currentQuestion={currentQuestion + 1}
-                      totalQuestions={max}
-                    />
-                    <Options
-                      answerOptions={allQuestions[currentQuestion].options}
-                      handleAnswerOption={handleAnswerOption}
-                      selectedOptions={selectedOptions}
-                      currentQuestion={currentQuestion}
-                    />
+                    {allQuestions.length > 0 && (
+                      <>
+                        <Question
+                          q={allQuestions[currentQuestion].question}
+                          currentQuestion={currentQuestion + 1}
+                          totalQuestions={max}
+                        />
+                        <Options
+                          answerOptions={allQuestions[currentQuestion].options}
+                          handleAnswerOption={handleAnswerOption}
+                          selectedOptions={selectedOptions}
+                          currentQuestion={currentQuestion}
+                          correctAnswer={
+                            allQuestions[currentQuestion].correct_answer
+                          }
+                          showCorrect={true}
+                        />
+                      </>
+                    )}
+
+                    <div className="flex justify-between w-full mt-4 text-white">
+                      <button
+                        className="w-[49%] py-3 bg-blue-500 rounded-lg"
+                        onClick={handlePrevious}
+                      >
+                        Previous
+                      </button>
+                      <button
+                        className="w-[49%] py-3 bg-blue-500 rounded-lg"
+                        onClick={
+                          currentQuestion + 1 === max
+                            ? () => {
+                                router.push("/");
+                              }
+                            : handleNext
+                        }
+                      >
+                        {currentQuestion + 1 === max
+                          ? "Go to Home Page"
+                          : "Next"}
+                      </button>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    {allQuestions.length > 0 && (
+                      <>
+                        <Question
+                          q={allQuestions[currentQuestion].question}
+                          currentQuestion={currentQuestion + 1}
+                          totalQuestions={max}
+                        />
+                        <Options
+                          answerOptions={allQuestions[currentQuestion].options}
+                          handleAnswerOption={handleAnswerOption}
+                          selectedOptions={selectedOptions}
+                          currentQuestion={currentQuestion}
+                          correctAnswer={
+                            allQuestions[currentQuestion].correct_answer
+                          }
+                          showCorrect={false}
+                        />
+                      </>
+                    )}
+
+                    <div className="flex justify-between w-full mt-4 text-white">
+                      <button
+                        className="w-[49%] py-3 bg-blue-500 rounded-lg"
+                        onClick={handlePrevious}
+                      >
+                        Previous
+                      </button>
+                      <button
+                        className="w-[49%] py-3 bg-blue-500 rounded-lg"
+                        onClick={
+                          currentQuestion + 1 === max
+                            ? handleSubmitButton
+                            : handleNext
+                        }
+                      >
+                        {currentQuestion + 1 === max ? "Submit" : "Next"}
+                      </button>
+                    </div>
                   </>
                 )}
-
-                <div className="flex justify-between w-full mt-4 text-white">
-                  <button
-                    className="w-[49%] py-3 bg-blue-500 rounded-lg"
-                    onClick={handlePrevious}
-                  >
-                    Previous
-                  </button>
-                  <button
-                    className="w-[49%] py-3 bg-blue-500 rounded-lg"
-                    onClick={
-                      currentQuestion + 1 === max
-                        ? handleSubmitButton
-                        : handleNext
-                    }
-                  >
-                    {currentQuestion + 1 === max ? "Submit" : "Next"}
-                  </button>
-                </div>
               </>
             )}
           </>
