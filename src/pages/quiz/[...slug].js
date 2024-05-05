@@ -133,14 +133,14 @@ export default function index() {
             </h1>
             <div className="flex justify-center w-full mt-4 text-white">
               <button
-                className="w-[25%] py-3 bg-blue-500 rounded-lg"
+                className="w-[25%] py-3 bg-green-500 rounded-lg"
                 onClick={() => {
                   setSeeSolution(true);
                   setShowScore(false);
                   setCurrentQuestion(0);
                 }}
               >
-                See Solution
+                Solution
               </button>
             </div>
             <div className="flex justify-center w-full mt-4 text-white">
