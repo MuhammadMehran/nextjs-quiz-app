@@ -11,13 +11,12 @@ const Options = ({
 }) => {
   let divClass =
     "flex items-center w-full py-4 pl-5 m-2 ml-0 space-x-2 border-2 cursor-pointer rounded-xl";
-  if (
-    showCorrect &&
-    correctAnswer == selectedOptions[currentQuestion]?.answerByUser
-  ) {
-    divClass += " bg-green-100";
-  } else {
-    divClass += " bg-red-100";
+  if (showCorrect) {
+    if (correctAnswer == selectedOptions[currentQuestion]?.answerByUser) {
+      divClass += " bg-green-100";
+    } else {
+      divClass += " bg-red-100";
+    }
   }
   let condition =
     correctAnswer == selectedOptions[currentQuestion]?.answerByUser
