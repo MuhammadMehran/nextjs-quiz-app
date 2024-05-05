@@ -122,6 +122,7 @@ export default function index() {
       <div className="flex flex-col  w-screen px-5 h-screen justify-center items-center">
         <Head>
           <title>Quiz App</title>
+          <meta charSet="utf-8" />
         </Head>
 
         {showScore ? (

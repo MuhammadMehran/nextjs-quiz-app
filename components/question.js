@@ -8,7 +8,7 @@ const Question = ({ q, currentQuestion, totalQuestions }) => {
         Question {currentQuestion} of {totalQuestions}
       </Heading>
       <Text fontSize="lg" className="mt-4">
-        {q}
+        <p dangerouslySetInnerHTML={{ __html: q }} />
       </Text>
     </div>
   );
