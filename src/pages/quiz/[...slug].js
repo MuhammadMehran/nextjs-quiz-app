@@ -19,7 +19,7 @@ function index({ data }) {
   });
   const [allQuestions, setAllQuestions] = useState(data);
 
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [seeSolution, setSeeSolution] = useState(false);
 
   const max = 10;
@@ -60,9 +60,9 @@ function index({ data }) {
   useEffect(() => {
     const fetchData = async () => {
       // deliberate delay
-      setLoading(true);
-      sleep(10000);
-      setLoading(false);
+      // setLoading(true);
+      // sleep(10000);
+      // setLoading(false);
     };
     fetchData();
   });
