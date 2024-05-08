@@ -7,7 +7,7 @@ import { useSteps } from "@chakra-ui/react";
 import { Box, Progress, Skeleton, Stack } from "@chakra-ui/react";
 import axios from "axios";
 
-export default function index() {
+function index({ data }) {
   const router = useRouter();
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedOptions, setSelectedOptions] = useState([]);
@@ -17,7 +17,8 @@ export default function index() {
     index: 0,
     count: 10,
   });
-  const [allQuestions, setAllQuestions] = useState([]);
+  const [allQuestions, setAllQuestions] = useState(data);
+
   const [loading, setLoading] = useState(true);
   const [seeSolution, setSeeSolution] = useState(false);
 
@@ -55,63 +56,12 @@ export default function index() {
   function sleep(ms) {
     return new Promise((resolve) => setTimeout(resolve, ms));
   }
-  // Function to shuffle array elements (Fisher-Yates algorithm)
-  const shuffle = (array) => {
-    let currentIndex = array.length,
-      temporaryValue,
-      randomIndex;
-
-    while (currentIndex !== 0) {
-      randomIndex = Math.floor(Math.random() * currentIndex);
-      currentIndex -= 1;
-
-      temporaryValue = array[currentIndex];
-      array[currentIndex] = array[randomIndex];
-      array[randomIndex] = temporaryValue;
-    }
-
-    return array;
-  };
 
   useEffect(() => {
     const fetchData = async () => {
+      // deliberate delay
       setLoading(true);
-
-      const { slug } = router.query;
-      if (slug == undefined) {
-        router.push("/");
-        return;
-      }
-      if (slug.length != 2) {
-        router.push("/");
-        return;
-      }
-      const category = slug[0];
-      const difficulty = slug[1].toLowerCase();
-      // if (category === undefined) {
-      //   router.push("/");
-      //   return;
-      // }
-
-      if (allQuestions.length == 0) {
-        try {
-          const result = await axios.get(
-            `https://opentdb.com/api.php?amount=10&category=${category}&difficulty=${difficulty}&type=multiple`
-          );
-          let res = result.data.results;
-          // res = { ...res, options};
-          res.map((item) => {
-            item["options"] = shuffle([
-              item.correct_answer,
-              ...item.incorrect_answers,
-            ]);
-          });
-          setAllQuestions(res);
-          sleep(10000);
-        } catch (error) {
-          console.error("Error fetching data:", error);
-        }
-      }
+      sleep(10000);
       setLoading(false);
     };
     fetchData();
@@ -265,3 +215,53 @@ export default function index() {
     </>
   );
 }
+
+export async function getServerSideProps(context) {
+  const { slug } = context.query;
+  if (slug.length != 2) {
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false, // Set to true if the redirect is permanent (HTTP 301)
+      },
+    };
+  }
+  const category = slug[0];
+  const difficulty = slug[1].toLowerCase();
+  // Fetch data from an API or any other source
+  const result = await axios.get(
+    `https://opentdb.com/api.php?amount=10&category=${category}&difficulty=${difficulty}&type=multiple`
+  );
+  let data = result.data.results;
+  // res = { ...res, options};
+
+  // Function to shuffle array elements (Fisher-Yates algorithm)
+  const shuffle = (array) => {
+    let currentIndex = array.length,
+      temporaryValue,
+      randomIndex;
+
+    while (currentIndex !== 0) {
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex -= 1;
+
+      temporaryValue = array[currentIndex];
+      array[currentIndex] = array[randomIndex];
+      array[randomIndex] = temporaryValue;
+    }
+
+    return array;
+  };
+
+  data.map((item) => {
+    item["options"] = shuffle([item.correct_answer, ...item.incorrect_answers]);
+  });
+
+  return {
+    props: {
+      data,
+    },
+  };
+}
+
+export default index;
